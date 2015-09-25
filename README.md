@@ -1,4 +1,4 @@
-# dockerfile-x11docker-google-earth
+# x11docker/google-earth
 Run Google Earth in docker on a new separate X server<br>
 Use x11docker to run image on separate new X server.<br>
 Get x11docker script from github: https://github.com/mviereck/x11docker<br>
