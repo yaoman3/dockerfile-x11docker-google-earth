@@ -1,5 +1,5 @@
 # x11docker/google-earth
-# V 1.0 from 25.09.2015
+# V 1.1 from 26.09.2015
 #
 # Run Google Earth in docker. 
 # Use x11docker to run image on separate new X server.
@@ -16,6 +16,10 @@
 #    docker build -t google-earth /PATH/TO/DOCKERFILE
 #  * Run image with command:
 #    x11docker run google-earth
+#
+# changelog:
+# 26.09.2015: V 1.1   included check if google-earth is installed
+
 
 FROM phusion/baseimage:latest
 
@@ -51,4 +55,25 @@ RUN apt-get install -y libglu1-mesa
 RUN apt-get -y -f install 
 RUN apt-get clean
 
-CMD google-earth
+# script to check if google-earth is installed; if not, show error&exit; if yes, run google-earth
+RUN echo "#! /bin/bash                                                          \n\
+command -v google-earth >/dev/null 2>&1 || {                                    \n\
+echo 'Error: Google Earth is not installed. Please enable installation of       \n\
+Google Earth in Dockerfile und build docker image yourself.                     \n\
+See https://hub.docker.com/r/x11docker/google-earth/ for details and reasons.   \n\
+To install Google Earth:                                                        \n\
+                                                                                \n\
+  *  save Dockerfile on your computer                                           \n\
+  *  enable lines "RUN wget ..." and "RUN dpkg ..."                             \n\
+  *  build image with command:                                                  \n\
+        docker build -t google-earth /PATH/TO/DOCKERFILE/                       \n\
+  *  Run image with command:                                                    \n\
+        x11docker run google-earth'                                             \n\
+  exit 1                                                                        \n\
+}                                                                               \n\
+google-earth                                                                    \n\
+" > /usr/local/bin/check-google-earth
+RUN chmod +x /usr/local/bin/check-google-earth
+
+
+CMD check-google-earth
