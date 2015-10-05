@@ -53,9 +53,6 @@ RUN apt-get install -y mrxvt                               # terminal emulator
 #RUN gdebi -n google-earth-stable_current_amd64.deb
 ###################
 
-RUN apt-get install -y mesa-utils
-RUN apt-get install -y xserver-xorg-video-all
-
 # Patch for google earth from amirpli to fix some bugs in google earth
 # See https://productforums.google.com/forum/?fromgroups=#!category-topic/earth/linux/_h4t6SpY_II%5B1-25-false%5D
 # and Readme-file https://docs.google.com/file/d/0B2F__nkihfiNMDlaQVoxNVVlaUk/edit?pli=1 for details
