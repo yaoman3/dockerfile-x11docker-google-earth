@@ -61,13 +61,14 @@ RUN apt-get install -y xserver-xorg-video-all
 # and Readme-file https://docs.google.com/file/d/0B2F__nkihfiNMDlaQVoxNVVlaUk/edit?pli=1 for details
 # Quote: "Update: This solution works fine also on Ubuntu 12.10 and 13.04 if you uncheck 
 #        the "Compress" box in Tools->Options->3D View (under "Texture Colors")."
-RUN mkdir -p /opt/google/earth
-RUN cd /opt/google/earth
-RUN cp -a /opt/google/earth/free /opt/google/earth/free.newlibs
-RUN wget -O /opt/google/earth/free.newlibs/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz "https://doc-0k-24-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/6nggrqasnsdh7ffc403adado6siv9uba/1444032000000/12191820241974564035/*/0B2F__nkihfiNOUJSeEJfWUx0Vk0?e=download"
-RUN tar xvf /opt/google/earth/free.newlibs/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz
-RUN mv /usr/bin/google-earth /usr/bin/google-earth.old
-RUN ln -s /opt/google/earth/free.newlibs/googleearth /usr/bin/google-earth
+# Patch is disabled yet because of non-static internet adress of download file.
+#RUN mkdir -p /opt/google/earth
+#RUN cd /opt/google/earth
+#RUN cp -a /opt/google/earth/free /opt/google/earth/free.newlibs
+#RUN wget -O /opt/google/earth/free.newlibs/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz "https://doc-0k-24-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/6nggrqasnsdh7ffc403adado6siv9uba/1444032000000/12191820241974564035/*/0B2F__nkihfiNOUJSeEJfWUx0Vk0?e=download"
+#RUN tar xvf /opt/google/earth/free.newlibs/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz
+#RUN mv /usr/bin/google-earth /usr/bin/google-earth.old
+#RUN ln -s /opt/google/earth/free.newlibs/googleearth /usr/bin/google-earth
 
 RUN apt-get clean
 
