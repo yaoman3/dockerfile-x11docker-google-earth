@@ -1,5 +1,5 @@
 # x11docker/google-earth
-# V 1.1 from 5.10.2015
+# V 1.0 from 25.09.2015
 #
 # Run Google Earth in docker. 
 # Use x11docker to run image on separate new X server.
@@ -70,6 +70,7 @@ To install Google Earth:  \n\
   *  build image with command: \n\
        docker build -t google-earth /PATH/TO/DOCKERFILE/ \n\
       (replace /PATH/TO/DOCKERFILE to the folder where you saved the Dockerfile)\n\
+  *  Get script x11docker from github: https://github.com/mviereck/x11docker    \n\
   *  Run image with command: \n\
        x11docker run google-earth' \n\
   exit 1                                                                        \n\
@@ -98,7 +99,8 @@ RUN chmod +x /usr/local/bin/check-google-earth
 # See https://productforums.google.com/forum/?fromgroups=#!category-topic/earth/linux/_h4t6SpY_II%5B1-25-false%5D
 # and Readme-file https://docs.google.com/file/d/0B2F__nkihfiNMDlaQVoxNVVlaUk/edit?pli=1 for details
 #
-RUN mkdir -p /opt/google/earth
+RUN mkdir -p /opt/google/earth/free
+RUN touch /usr/bin/google-earth
 RUN cd /opt/google/earth
 RUN cp -a /opt/google/earth/free /opt/google/earth/free.newlibs
 RUN wget  -P /opt/google/earth/free.newlibs   https://github.com/mviereck/dockerfile-x11docker-google-earth/releases/download/v0.3.0-alpha/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz
