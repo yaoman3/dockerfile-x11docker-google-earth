@@ -1,15 +1,16 @@
 # x11docker/google-earth
-Run Google Earth in docker on a new separate X server<br>
-Use x11docker to run image on separate new X server.<br>
-Get x11docker script from github: https://github.com/mviereck/x11docker<br>
+ * Run Google Earth in docker
+ * Use x11docker to run image on separate new X server.
+ * Get x11docker script from github: https://github.com/mviereck/x11docker
 
 
 # Don't pull image. Please build yourself
 Download of Google Earth is disabled in the Dockerfile,
-because it could be a copyright problem to publish 
-the binaries of Google Earth in an image on Docker Hub.
+because it is a copyright problem to publish 
+the binaries of Google Earth on Docker Hub.
 To install Google Earth:
-  * save Dockerfile on your computer
+  * get Dockerfile from github:<br>
+https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/master/Dockerfile
   * enable lines 'RUN wget ...' and 'RUN dpkg ...'
   * build image with command:<br>
     docker build -t google-earth /PATH/TO/DOCKERFILE/
