@@ -4,22 +4,21 @@
 # Run Google Earth in docker. 
 # Use x11docker to run image on separate new X server.
 # Get x11docker script from github: https://github.com/mviereck/x11docker
-#
+# Get raw x11docker script here: 
+# https://raw.githubusercontent.com/mviereck/x11docker/e49e109f9e78410d242a0226e58127ec9f9d6181/x11docker
 # NOTE:
 # Download of Google Earth is disabled in this Dockerfile,
-# because it could be a copyright problem to publish 
-# the binaries in an image on Docker Hub.
+# because it is a copyright problem to publish 
+# the binaries on Docker Hub.
 # To install Google Earth:
-#  * save this Dockerfile on your computer
+#  * save this Dockerfile on your computer. Get it here:
+# https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/master/Dockerfile
 #  * enable lines 'RUN wget ...' and 'RUN dpkg ...'
 #  * build image with command:
 #    docker build -t google-earth /PATH/TO/DOCKERFILE
 #  * Run image with command:
-#    x11docker run google-earth
+#    x11docker google-earth
 #
-# Update 2015-10-05: * fixed bug using a patch from amirpli
-#                    * improved installation routine
-#                    * creating config file for google earth
 
 FROM phusion/baseimage:latest
 
@@ -41,45 +40,14 @@ RUN apt-get install -y -f
 # install wget and some dependencies for google earth
 # x11docker doesn't need X/xorg to be installed, but google earth
 # needs a lot of its dependencies.
-# Also the xorg package includes the open source drivers for 
-# graphic cards to use OpenGL. glxinfo shows me that direct rendering
-# is possible; unfortunatile, google earth doesn't seem to
-# recognize it and uses software rendering instead.
 #
 RUN apt-get install -y xorg
+RUN apt-get install -y mesa-utils mesa-utils-extra
+RUN apt-get install -y libfreeimage3
 RUN apt-get install -y --no-install-recommends wget
 RUN apt-get install -y --no-install-recommends xdg-utils
 RUN apt-get install -y gdebi-core
-RUN apt-get install -y libfreeimage3
 RUN apt-get install -y tar
-RUN apt-get install -y mrxvt                               # terminal emulator
-RUN apt-get install -y mesa-utils
-
-
-
-# script to check if google-earth is installed; if not, show error&exit; if yes, run google-earth
-RUN echo "#! /bin/bash                                                          \n\
-command -v google-earth >/dev/null 2>&1 || {                                    \n\
-echo 'Error: Google Earth is not installed. Please enable installation of \n\
-Google Earth in Dockerfile und build docker image yourself. \n\
-See https://hub.docker.com/r/x11docker/google-earth/ for details and reasons. \n\
-To install Google Earth:  \n\
-  \n\
-  *  save Dockerfile on your computer  \n\
-  *  enable lines "RUN wget ..." and "RUN gdebi ..."  \n\
-  *  build image with command: \n\
-       docker build -t google-earth /PATH/TO/DOCKERFILE/ \n\
-      (replace /PATH/TO/DOCKERFILE to the folder where you saved the Dockerfile)\n\
-  *  Get script x11docker from github: https://github.com/mviereck/x11docker    \n\
-  *  Run image with command: \n\
-       x11docker run google-earth' \n\
-  exit 1                                                                        \n\
-}                                                                               \n\
-google-earth                                                                    \n\
-" > /usr/local/bin/check-google-earth
-RUN chmod +x /usr/local/bin/check-google-earth
-
-
 
 
 ####################################################
@@ -90,8 +58,6 @@ RUN chmod +x /usr/local/bin/check-google-earth
 #RUN gdebi -n google-earth-stable_current_amd64.deb
 
 ####################################################
-
-
 
 
 # Patch for google earth from amirpli to fix some bugs in google earth qt libs
@@ -128,4 +94,29 @@ TextureCompression=false       \n\
 ' > /root/.config/Google/GoogleEarthPlus.conf
 
 
-CMD check-google-earth
+
+# script to check if google-earth is installed; if not, show error&exit; if yes, run google-earth
+RUN echo "#! /bin/bash                                                        \n\
+command -v google-earth >/dev/null 2>&1 || {                                  \n\
+echo 'Error: Google Earth is not installed. Please enable installation of     \n\
+Google Earth in Dockerfile und build docker image yourself.                   \n\
+See https://hub.docker.com/r/x11docker/google-earth/ for details and reasons. \n\
+To install Google Earth:                                                      \n\
+                                                                              \n\
+  *  get Dockerfile from github:                                              \n\
+https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/master/Dockerfile \n\
+  *  enable lines  RUN wget ...  and  RUN gdebi ...                           \n\
+  *  build image with command:                                                \n\
+       docker build -t google-earth /PATH/TO/DOCKERFILE/                      \n\
+      (replace /PATH/TO/DOCKERFILE/ to where you saved the Dockerfile)        \n\
+  *  Get script x11docker from github: https://github.com/mviereck/x11docker  \n\
+  *  Run image with command:                                                  \n\
+       x11docker google-earth'                                                \n\
+  exit 1                                                                      \n\
+}                                                                             \n\
+google-earth                                                                  \n\
+" > /usr/local/bin/start
+RUN chmod +x /usr/local/bin/start
+
+
+CMD start
