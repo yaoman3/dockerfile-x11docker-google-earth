@@ -46,7 +46,7 @@ RUN apt-get install -y libfreeimage3
 RUN apt-get install -y --no-install-recommends wget
 RUN apt-get install -y --no-install-recommends xdg-utils
 RUN apt-get install -y gdebi-core
-RUN apt-get install -y tar
+RUN apt-get install -y tar xz-utils
 
 
 ####################################################
