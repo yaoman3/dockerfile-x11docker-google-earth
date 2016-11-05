@@ -1,5 +1,5 @@
 # x11docker/google-earth
-# V 1.0 from 25.09.2015
+# V 1.1 from 5.11.2016
 #
 # Run Google Earth in docker. 
 # Use x11docker to run image. 
