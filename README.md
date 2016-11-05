@@ -16,3 +16,4 @@ https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/mas
     docker build -t google-earth /PATH/TO/DOCKERFILE/
   * Run image with command:<br>
     x11docker google-earth
+    
