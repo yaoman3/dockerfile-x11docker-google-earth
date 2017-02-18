@@ -7,7 +7,7 @@ Download of Google Earth is disabled in Dockerfile due to copyright problems. (G
 To install Google Earth:
 
   * Get [Dockerfile from github](https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/master/Dockerfile)
-  * Enable lines `RUN wget ...` and `RUN dpkg ...`
+  * Enable lines `RUN wget ...` and `RUN gdebi ...`
   * Build image with command: `docker build -t google-earth /PATH/TO/DOCKERFILE/`
   * Run image with command: `x11docker google-earth`
     
