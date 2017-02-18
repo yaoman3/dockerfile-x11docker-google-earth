@@ -12,7 +12,7 @@
 # To install Google Earth:
 #  * save this Dockerfile on your computer. Get it here:
 # https://raw.githubusercontent.com/mviereck/dockerfile-x11docker-google-earth/master/Dockerfile
-#  * enable lines 'RUN wget ...' and 'RUN dpkg ...'
+#  * enable lines 'RUN wget ...' and 'RUN gdebi ...'
 #  * build image with command:
 #    docker build -t google-earth /PATH/TO/DOCKERFILE
 #
