@@ -54,8 +54,8 @@ RUN apt-get install -y tar xz-utils
 # Enable the following two commands to download and 
 # install Google Earth current
 
-#RUN wget --no-check-certificate https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
-#RUN gdebi -n google-earth-stable_current_amd64.deb
+RUN wget --no-check-certificate https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
+RUN gdebi -n google-earth-stable_current_amd64.deb
 
 ####################################################
 
@@ -73,6 +73,11 @@ RUN wget --no-check-certificate -P /opt/google/earth/free.newlibs   https://gith
 RUN tar xvf /opt/google/earth/free.newlibs/ge7.1.1.1580-0.x86_64-new-qt-libs-debian7-ubuntu12.tar.xz
 RUN mv /usr/bin/google-earth /usr/bin/google-earth.old
 RUN ln -s /opt/google/earth/free.newlibs/googleearth /usr/bin/google-earth
+RUN apt-get install -y module-init-tools
+
+ADD nvidia-driver.run /tmp/nvidia-driver.run
+RUN sh /tmp/nvidia-driver.run -a -N --ui=none --no-kernel-module
+RUN rm /tmp/nvidia-driver.run
 
 
 RUN apt-get clean
